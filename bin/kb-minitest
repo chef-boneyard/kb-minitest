@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -e
+[ -n "$KB_DEBUG" ] && set -x
+
+plugin="$(basename $0 | sed 's/^kb-//')"
+pluginpath="$(kb-pluginpath $plugin)"
+suitepath="$(kb-suitepath $plugin)"
+
+kb-suite-prepare $plugin
+
+kb-ruby "$pluginpath/lib/minitest_runner.rb" "$suitepath"
